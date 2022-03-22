@@ -10,19 +10,27 @@ module Display
     puts '-----------------------'
   end
 
-  def guess_prompt
-    puts 'User, make a guess...'
+  def player_message
+    puts 'What is your name?'
+  end
+
+  def welcome_player(name)
+    puts "Welcome #{name}, let's begin..."
+  end
+
+  def guess_prompt(name)
+    puts "#{name}, make a guess..."
   end
 
   def invalid_guess
-    puts 'Invalid Guess (Must be a single character letter)'
+    puts 'Invalid Guess (Must be a single letter a-z)'
   end
 
-  def user_wins
-    puts 'Congrats! You win!'
+  def user_wins(name)
+    puts "Congrats #{name}! You win!"
   end
 
-  def user_looses
-    puts 'Sorry. You loose.'
+  def user_looses(name)
+    puts "Sorry #{name}. You loose."
   end
 end

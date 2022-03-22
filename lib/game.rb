@@ -2,6 +2,7 @@
 
 require_relative 'intro'
 require_relative 'display'
+require_relative 'player'
 
 # when a new game is created
 class Game
@@ -9,6 +10,7 @@ class Game
   include Intro
 
   def initialize
+    @player = nil
     @answer = nil
     @answer_hidden = nil
     @guess = nil
@@ -18,9 +20,16 @@ class Game
 
   def game
     introduction
+    create_player
     create_word
     hide_answer(@answer)
     game_loop
+  end
+
+  def create_player
+    player_message
+    @player = Player.new(gets.chomp)
+    welcome_player(@player.name)
   end
 
   def create_word
@@ -38,7 +47,7 @@ class Game
   end
 
   def make_your_move
-    guess_prompt
+    guess_prompt(@player.name)
     @guess = gets.chomp.downcase
     validate_guess(@guess)
     @guess
@@ -76,6 +85,6 @@ class Game
   end
 
   def display_winner
-    @answer_hidden.join('') == @answer ? user_wins : user_looses
+    @answer_hidden.join('') == @answer ? user_wins(@player.name) : user_looses(@player.name)
   end
 end
