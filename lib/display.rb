@@ -2,11 +2,11 @@
 
 # when a new game board is created
 module Display
-  def display_board(word, chance)
+  def display_board(answer, chance)
     puts '-----------------------'
-    puts "Guesses: #{@guess_list.join(",") unless @guess_list.empty?}"
-    puts "Word to guess: #{word} (#{@answer})"
-    puts "#{chance} Chances left"
+    puts "Guesses: #{@guess_list.join(',') unless @guess_list.empty?}"
+    puts "Word to guess: #{answer} (#{@answer})"
+    puts "#{chance} Chance(s) left"
     puts '-----------------------'
   end
 

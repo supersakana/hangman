@@ -30,8 +30,8 @@ class Game
   end
 
   def game_loop
-    until @chances.zero?
-      display_board(@answer_hidden, @chances)
+    until @chances.zero? || @answer_hidden.join('') == @answer
+      display_board(@answer_hidden.join(''), @chances)
       make_your_move
     end
   end
@@ -43,17 +43,34 @@ class Game
     @guess
   end
 
-  def hide_answer(word)
-    @answer_hidden = word.split('').map { ' _ ' }.join('')
+  def hide_answer(answer)
+    @answer_hidden = answer.split('').map { ' _ ' }
   end
 
-  def validate_guess(char)
+  def validate_guess(guess)
     alpha = ('a'..'z').to_a
-    if char.length > 1 || char.empty? || alpha.none?(char.to_s)
+    if guess.length > 1 || guess.empty? || alpha.none?(guess.to_s)
       invalid_guess
       make_your_move
     else
-      @guess_list.push(char)
+      guess_checker(guess)
+      @guess_list.push(guess)
+    end
+  end
+
+  def guess_checker(guess)
+    if @answer.split('').include?(guess)
+      guess_reveal(guess)
+    else
+      @chances -= 1
+    end
+  end
+
+  def guess_reveal(guess)
+    @answer.split('').each_with_index do |char, index|
+      next unless char == guess.to_s
+
+      @answer_hidden[index] = guess
     end
   end
 end
