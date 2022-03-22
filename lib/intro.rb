@@ -3,7 +3,7 @@
 # displayed at the begining of the game.
 module Intro
   def instructions
-    <<~HEREDOC
+    puts <<~HEREDOC
 
       Welcome to Hangman!
 
@@ -16,6 +16,8 @@ module Intro
       If you guess incorrectly, you deduct 1 chance.
 
       Let's begin!
+
+      (Click ENTER to start!)
 
     HEREDOC
   end
