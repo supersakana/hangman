@@ -17,4 +17,12 @@ module Display
   def invalid_guess
     puts 'Invalid Guess (Must be a single character letter)'
   end
+
+  def user_wins
+    puts 'Congrats! You win!'
+  end
+
+  def user_looses
+    puts 'Sorry. You loose.'
+  end
 end

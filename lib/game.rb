@@ -34,6 +34,7 @@ class Game
       display_board(@answer_hidden.join(''), @chances)
       make_your_move
     end
+    display_winner
   end
 
   def make_your_move
@@ -72,5 +73,9 @@ class Game
 
       @answer_hidden[index] = guess
     end
+  end
+
+  def display_winner
+    @answer_hidden.join('') == @answer ? user_wins : user_looses
   end
 end
