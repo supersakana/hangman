@@ -9,34 +9,40 @@ class Game
   include Intro
 
   def initialize
-    @guess_word = nil
+    @answer = nil
+    @answer_hidden = nil
     @guess = nil
+    @guess_list = []
     @chances = 6
   end
 
   def game
-    instructions
-    gets
+    introduction
     create_word
+    hide_answer(@answer)
     game_loop
   end
 
   def create_word
-    word_file = File.open('google-10000-english-no-swears.txt')
+    word_file = File.open('../google-10000-english-no-swears.txt')
     words = word_file.readlines.map(&:chomp).select { |word| word.length > 4 && word.length < 13 }
-    @guess_word = words.sample
+    @answer = words.sample
   end
 
   def game_loop
     until @chances.zero?
-      display_board(@guess_word, @chances)
+      display_board(@answer_hidden, @chances)
       make_your_move
     end
   end
 
   def make_your_move
     guess_prompt
-    @guess = gets.chomp.upcase
+    @guess = gets.chomp.downcase
     puts "This is your guess: #{@guess}"
+  end
+
+  def hide_answer(word)
+    @answer_hidden = word.split('').map { ' _ ' }.join('')
   end
 end

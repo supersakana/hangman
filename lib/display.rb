@@ -4,7 +4,7 @@
 module Display
   def display_board(word, chance)
     puts '-----------------------'
-    puts "Word to guess: #{word.upcase}"
+    puts "Word to guess: #{word} (#{@answer})"
     puts "#{chance} Chances left"
     puts '-----------------------'
   end

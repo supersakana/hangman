@@ -21,4 +21,9 @@ module Intro
 
     HEREDOC
   end
+
+  def introduction
+    instructions
+    gets
+  end
 end
