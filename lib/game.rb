@@ -39,10 +39,21 @@ class Game
   def make_your_move
     guess_prompt
     @guess = gets.chomp.downcase
-    puts "This is your guess: #{@guess}"
+    validate_guess(@guess)
+    @guess
   end
 
   def hide_answer(word)
     @answer_hidden = word.split('').map { ' _ ' }.join('')
+  end
+
+  def validate_guess(char)
+    alpha = ('a'..'z').to_a
+    if char.length > 1 || char.empty? || alpha.none?(char.to_s)
+      invalid_guess
+      make_your_move
+    else
+      @guess_list.push(char)
+    end
   end
 end
