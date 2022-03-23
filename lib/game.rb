@@ -38,6 +38,10 @@ class Game
     @answer = words.sample
   end
 
+  def hide_answer(answer)
+    @answer_hidden = answer.split('').map { ' _ ' }
+  end
+
   def game_loop
     until @chances.zero? || @answer_hidden.join('') == @answer
       display_board(@answer_hidden.join(''), @chances)
@@ -51,10 +55,6 @@ class Game
     @guess = gets.chomp.downcase
     validate_guess(@guess)
     @guess
-  end
-
-  def hide_answer(answer)
-    @answer_hidden = answer.split('').map { ' _ ' }
   end
 
   def validate_guess(guess)
