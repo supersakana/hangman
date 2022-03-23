@@ -19,7 +19,7 @@ module Display
   end
 
   def guess_prompt(name)
-    puts "#{name}, make a guess..."
+    puts "#{name}, make a guess...(Enter 'save' to save your progress)"
   end
 
   def invalid_guess
