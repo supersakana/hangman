@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'intro'
+require_relative 'save'
 require_relative 'display'
 require_relative 'player'
 
@@ -8,14 +9,27 @@ require_relative 'player'
 class Game
   include Display
   include Intro
+  include Save
 
   def initialize
+    @game_data = nil
     @player = nil
     @answer = nil
     @answer_hidden = nil
     @guess = nil
     @guess_list = []
     @chances = 6
+  end
+
+  def game_data
+    @game_data = {
+      player: @player,
+      answer: @answer,
+      answer_hidden: @answer_hidden,
+      guess: @guess,
+      guess_list: @guess_list,
+      chances: @chances
+    }
   end
 
   def game
@@ -46,20 +60,23 @@ class Game
     until @chances.zero? || @answer_hidden.join('') == @answer
       display_board(@answer_hidden.join(''), @chances)
       make_your_move
+      game_data
     end
     display_winner
   end
 
   def make_your_move
     guess_prompt(@player.name)
-    @guess = gets.chomp.downcase
+    @guess = gets.chomp.downcase unless @guess == 'save'
     validate_guess(@guess)
     @guess
   end
 
   def validate_guess(guess)
     alpha = ('a'..'z').to_a
-    if guess.length > 1 || guess.empty? || alpha.none?(guess.to_s)
+    if guess == 'save'
+      save_game
+    elsif guess.length > 1 || guess.empty? || alpha.none?(guess.to_s)
       invalid_guess
       make_your_move
     else
@@ -86,5 +103,11 @@ class Game
 
   def display_winner
     @answer_hidden.join('') == @answer ? user_wins(@player.name) : user_looses(@player.name)
+  end
+
+  def save_game
+    new_file(@game_data)
+    puts 'Saved game'
+    exit
   end
 end
