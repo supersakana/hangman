@@ -9,10 +9,10 @@ module Save
   include Display
 
   def new_file(hash)
-    hash.to_json
+    new_hash = JSON.dump(hash)
     Dir.mkdir('output') unless Dir.exist?('output')
-    saved_file = "output/#{@player.name.downcase}.json"
-    File.open(saved_file, 'w') { |file| file.write(hash) }
+    saved_file = "output/#{@player.downcase}.json"
+    File.open(saved_file, 'w') { |file| file.write(new_hash) }
   end
 
   def save_game
@@ -25,7 +25,7 @@ module Save
     puts open_message
     show_files
     choice = gets.chomp
-    open_file(choice) if Dir.entries('output').include?("#{choice}.json")
+    return open_file(choice) if Dir.entries('output').include?("#{choice}.json")
   end
 end
 
@@ -34,11 +34,6 @@ def show_files
 end
 
 def open_file(file)
-  puts "File to open: #{file}.json"
-
   saved_file = File.read("output/#{file}.json")
-  # puts saved_file
-  data = JSON.parse(saved_file)
-  puts data
-  exit
+  JSON.parse(saved_file)
 end

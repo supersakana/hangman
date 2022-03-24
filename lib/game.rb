@@ -36,17 +36,32 @@ class Game
 
   def game
     introduction
-    resume_game if Dir.exist?('output')
+    load_game
+    # resume_game if Dir.exist?('output')
     create_player
     create_word
     hide_answer(@answer)
     game_loop
   end
 
+  def load_game
+    return unless Dir.exist?('output')
+
+    @game_data = resume_game
+
+    @player = @game_data['player']
+    @answer = @game_data['answer']
+    @answer_hidden = @game_data['answer_hidden']
+    @guess = @game_data['guess']
+    @guess_list = @game_data['guess_list']
+    @chances = @game_data['chances']
+    game_loop
+  end
+
   def create_player
     player_message
-    @player = Player.new(gets.chomp)
-    welcome_player(@player.name)
+    @player = Player.new(gets.chomp).name
+    welcome_player(@player)
   end
 
   def create_word
@@ -69,7 +84,7 @@ class Game
   end
 
   def make_your_move
-    guess_prompt(@player.name)
+    guess_prompt(@player)
     @guess = gets.chomp.downcase unless @guess == 'save'
     validate_guess(@guess)
     @guess
@@ -105,6 +120,7 @@ class Game
   end
 
   def display_winner
-    @answer_hidden.join('') == @answer ? user_wins(@player.name) : user_looses(@player.name)
+    @answer_hidden.join('') == @answer ? user_wins(@player) : user_looses(@player)
+    exit
   end
 end
