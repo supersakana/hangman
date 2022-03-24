@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+
 require_relative 'intro'
 require_relative 'save'
 require_relative 'display'
@@ -34,6 +36,7 @@ class Game
 
   def game
     introduction
+    resume_game if Dir.exist?('output')
     create_player
     create_word
     hide_answer(@answer)

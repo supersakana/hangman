@@ -34,6 +34,10 @@ module Display
     puts "Sorry #{name}. You loose."
   end
 
+  def open_message
+    'You have a saved game, type one of the choices to resume? (Click ENTER to create a new game)'
+  end
+
   # def after_save
   #   puts 'Would you like to exit the game? (y/n)'
   # end
