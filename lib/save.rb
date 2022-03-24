@@ -21,19 +21,23 @@ module Save
     exit
   end
 
-  def resume_game
-    puts open_message
-    show_files
-    choice = gets.chomp
-    return open_file(choice) if Dir.entries('output').include?("#{choice}.json")
+  def show_files
+    Dir.entries('output').each { |file| puts file.delete '.json' }
   end
-end
 
-def show_files
-  Dir.entries('output').each { |file| puts file.delete '.json' }
-end
+  def open_file(file)
+    saved_file = File.read("output/#{file}.json")
+    JSON.parse(saved_file)
+  end
 
-def open_file(file)
-  saved_file = File.read("output/#{file}.json")
-  JSON.parse(saved_file)
+  def update_data(file)
+    @game_data = file
+    @player = @game_data['player']
+    @answer = @game_data['answer']
+    @answer_hidden = @game_data['answer_hidden']
+    @guess = @game_data['guess']
+    @guess_list = @game_data['guess_list']
+    @chances = @game_data['chances']
+    game_loop
+  end
 end

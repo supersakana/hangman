@@ -35,7 +35,7 @@ module Display
   end
 
   def open_message
-    'You have a saved game, type one of the choices to resume? (Click ENTER to create a new game)'
+    puts 'You have a saved game, type one of the choices to resume? (Click ENTER to create a new game)'
   end
 
   # def after_save

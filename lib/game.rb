@@ -37,7 +37,6 @@ class Game
   def game
     introduction
     load_game
-    # resume_game if Dir.exist?('output')
     create_player
     create_word
     hide_answer(@answer)
@@ -45,17 +44,13 @@ class Game
   end
 
   def load_game
-    return unless Dir.exist?('output')
+    open_message
+    show_files
+    choice = gets.chomp
+    return unless Dir.entries('output').include?("#{choice}.json")
 
-    @game_data = resume_game
-
-    @player = @game_data['player']
-    @answer = @game_data['answer']
-    @answer_hidden = @game_data['answer_hidden']
-    @guess = @game_data['guess']
-    @guess_list = @game_data['guess_list']
-    @chances = @game_data['chances']
-    game_loop
+    choosen_file = open_file(choice)
+    update_data(choosen_file)
   end
 
   def create_player
