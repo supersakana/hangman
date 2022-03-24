@@ -8,8 +8,8 @@ require_relative 'player'
 
 # when a new game is created
 class Game
-  include Display
   include Data
+  include Display
 
   def initialize
     @game_data = nil
@@ -33,7 +33,7 @@ class Game
   end
 
   def game
-    load_game
+    load_game if Dir.exist?('output')
     create_player
     create_word
     hide_answer(@answer)
