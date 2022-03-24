@@ -104,10 +104,4 @@ class Game
   def display_winner
     @answer_hidden.join('') == @answer ? user_wins(@player.name) : user_looses(@player.name)
   end
-
-  def save_game
-    new_file(@game_data)
-    puts 'Saved game'
-    exit
-  end
 end

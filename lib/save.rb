@@ -12,7 +12,9 @@ module Save
     File.open(saved_file, 'w') { |file| file.write(data) }
   end
 
-  #   def exit_or_continue
-  #     exit_prompt
-  #   end
+  def save_game
+    new_file(@game_data)
+    puts 'Saved game'
+    exit
+  end
 end

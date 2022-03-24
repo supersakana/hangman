@@ -7,7 +7,6 @@ module Display
     puts "Guesses: #{@guess_list.join(',') unless @guess_list.empty?}"
     puts "Word to guess: #{answer} (#{@answer})"
     puts "#{chance} Chance(s) left"
-    puts "Game Data: #{@game_data unless @game_data.nil?}"
     puts '-----------------------'
   end
 
