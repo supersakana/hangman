@@ -5,7 +5,7 @@ require 'json'
 require_relative 'display'
 
 # includes methods for saving and retriving saved files
-module Save
+module Data
   include Display
 
   def new_file(hash)

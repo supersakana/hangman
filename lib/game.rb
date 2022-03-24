@@ -2,16 +2,14 @@
 
 require 'json'
 
-require_relative 'intro'
-require_relative 'save'
+require_relative 'data'
 require_relative 'display'
 require_relative 'player'
 
 # when a new game is created
 class Game
   include Display
-  include Intro
-  include Save
+  include Data
 
   def initialize
     @game_data = nil
@@ -35,7 +33,6 @@ class Game
   end
 
   def game
-    introduction
     load_game
     create_player
     create_word
