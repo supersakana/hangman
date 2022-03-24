@@ -41,7 +41,7 @@ class Game
   end
 
   def load_game
-    open_message
+    opening_message
     show_files
     choice = gets.chomp
     return unless Dir.entries('output').include?("#{choice}.json")

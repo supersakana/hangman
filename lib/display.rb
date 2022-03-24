@@ -19,7 +19,7 @@ module Display
   end
 
   def guess_prompt(name)
-    puts "#{name}, make a guess...(Enter 'save' to save your progress)"
+    puts "#{name}, make a guess...(Enter 'save' to save and exit game)"
   end
 
   def invalid_guess
@@ -34,11 +34,7 @@ module Display
     puts "Sorry #{name}. You loose."
   end
 
-  def open_message
-    puts 'You have a saved game, type one of the choices to resume? (Click ENTER to create a new game)'
+  def opening_message
+    puts 'You have a saved game, type one of the choices to resume. (Click ENTER to create a new game)'
   end
-
-  # def after_save
-  #   puts 'Would you like to exit the game? (y/n)'
-  # end
 end
