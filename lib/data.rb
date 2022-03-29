@@ -30,6 +30,17 @@ module Data
     JSON.parse(saved_file)
   end
 
+  def game_data
+    @game_data = {
+      player: @player,
+      answer: @answer,
+      answer_hidden: @answer_hidden,
+      guess: @guess,
+      guess_list: @guess_list,
+      chances: @chances
+    }
+  end
+
   def update_data(file)
     @game_data = file
     @player = @game_data['player']

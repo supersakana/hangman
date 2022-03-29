@@ -21,20 +21,9 @@ class Game
     @chances = 6
   end
 
-  def game_data
-    @game_data = {
-      player: @player,
-      answer: @answer,
-      answer_hidden: @answer_hidden,
-      guess: @guess,
-      guess_list: @guess_list,
-      chances: @chances
-    }
-  end
-
   def game
     load_game if Dir.exist?('output')
-    create_player
+    create_player if @player.nil?
     create_word
     hide_answer(@answer)
     game_loop
@@ -113,6 +102,24 @@ class Game
 
   def display_winner
     @answer_hidden.join('') == @answer ? user_wins(@player) : user_looses(@player)
-    exit
+    replay
+  end
+
+  def replay
+    replay_message
+    choice = gets.chomp
+    if choice == 'yes'
+      refresh_data
+      game
+    else
+      exit_message
+      exit
+    end
+  end
+
+  def refresh_data
+    @game_data = nil
+    @guess_list = []
+    @chances = 6
   end
 end

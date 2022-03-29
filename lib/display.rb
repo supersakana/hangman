@@ -37,4 +37,12 @@ module Display
   def opening_message
     puts 'You have a saved game, type one of the choices to resume. (Click ENTER to create a new game)'
   end
+
+  def replay_message
+    puts 'Would you like to play again? (Type "yes" or "no")'
+  end
+
+  def exit_message
+    puts 'Thanks for playing!'
+  end
 end
