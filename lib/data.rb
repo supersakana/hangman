@@ -8,12 +8,14 @@ require_relative 'display'
 module Data
   include Display
 
+  # when the user types 'save' during gameplay
   def save_game
     new_file(@game_data)
     puts 'Saved game'
     exit
   end
 
+  # creates new directory and save file
   def new_file(hash)
     new_hash = JSON.dump(hash)
     Dir.mkdir('output') unless Dir.exist?('output')
@@ -21,15 +23,18 @@ module Data
     File.open(saved_file, 'w') { |file| file.write(new_hash) }
   end
 
+  # displays player names as files to select
   def show_files
     Dir.entries('output').each { |file| puts file[0..-6] }
   end
 
+  # opens selected file
   def open_file(file)
     saved_file = File.read("output/#{file}.json")
     JSON.parse(saved_file)
   end
 
+  # data to be saved each game
   def game_data
     @game_data = {
       player: @player,
@@ -41,6 +46,7 @@ module Data
     }
   end
 
+  # updates the file with game data
   def update_data(file)
     @game_data = file
     @player = @game_data['player']
